@@ -84,7 +84,16 @@ export class CompanyComponent implements AfterViewInit,OnInit {
    * @memberof CompanyComponent
    */
   viewLogo(company:CompanyModel){
-      this._alertUtilService.view({
+
+    if(!company?.logo){
+      this._alertUtilService.warning({
+        html:`La empresa ${company?.name} no tiene un logo registrado!`
+      });
+
+      return ;
+    }
+
+    this._alertUtilService.view({
         html: `Logo de  ${company?.name}`,
         imageUrl: company?.logo,
       });

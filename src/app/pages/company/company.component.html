@@ -94,7 +94,7 @@
                 <ng-container matColumnDef="logo">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Logo </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-sm btn-info" (click)="viewLogo(element)">
+                        <button class="btn btn-sm" [ngClass]="{'btn-danger': !element?.logo, 'btn-info':element?.logo}" (click)="viewLogo(element)">
                             <i class="mdi mdi-image"></i>
                         </button>    
                     </mat-cell>
