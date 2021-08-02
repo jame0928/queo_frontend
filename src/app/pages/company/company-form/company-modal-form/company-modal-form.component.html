@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>{{getTitle()}}</h2>
+<mat-dialog-content class="mat-typography">
+
+		<form class="kt-form" [formGroup]="companyForm" autocomplete="off">
+			<div class="kt-portlet__body">
+
+				<div class="kt-portlet__body-progress" [hidden]="!companyService.loading">
+					<mat-spinner [diameter]="20"></mat-spinner>
+				</div>
+
+				<div class="form-group kt-form__group row">
+
+
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Nombre" formControlName="name" />							
+							<mat-error>
+								<span *ngIf="companyForm.controls.name.errors?.required"> Por favor ingrese el 
+									Nombre
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Email" formControlName="email" />							
+							<mat-error>
+								<span *ngIf="companyForm.controls.email.errors"> Ingrese un Email Válido
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Página web" formControlName="website" />
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<label>Logo de la empresa</label>
+						<input type="file" (change)="handleFileInput($event.target.files)" accept="image/*" #inputFile>
+					</div>
+				</div>
+			</div>
+		</form>	
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button type="button" class="btn btn-danger" [mat-dialog-close]="data.animal" [disabled]="companyService.loading">
+		Cancelar
+	</button>&nbsp;
+	<button type="button" class="btn btn-primary" (click)="onSubmit(companyForm.value)" [disabled]="companyService.loading">Guardar Cambios</button>
+</mat-dialog-actions>

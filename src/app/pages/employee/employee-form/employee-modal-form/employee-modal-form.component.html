@@ -1,0 +1,148 @@
+<h2 mat-dialog-title>{{getTitle()}}</h2>
+<mat-dialog-content class="mat-typography">
+
+		<form class="kt-form" [formGroup]="employeeForm" autocomplete="off">
+			<div class="kt-portlet__body">
+
+				<div class="kt-portlet__body-progress" [hidden]="!employeeService.loading">
+					<mat-spinner [diameter]="20"></mat-spinner>
+				</div>
+
+				<div class="form-group kt-form__group row">
+
+
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Nombre" formControlName="first_name" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.first_name.errors?.required"> Por favor ingrese el 
+									Nombre
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Apellido" formControlName="last_name" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.last_name.errors?.required"> Por favor ingrese el 
+									Apellido
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Email" formControlName="email" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.email.errors"> Ingrese un Email Válido
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Teléfono" formControlName="phone" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.phone.errors"> Ingrese un Teléfono Válido
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<mat-select placeholder="Empresa" formControlName="company_id">
+								<mat-option *ngFor="let company of companies" [value]="company.id">
+									{{company?.name}}
+								</mat-option>							
+							</mat-select>							
+							<mat-error>Por favor seleccione una
+								<strong>Empresa</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<!--
+
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Segundo Nombre" formControlName="second_name" />
+							<mat-error>
+								<span *ngIf="employeeForm.controls.second_name.errors?.required"> Por favor ingrese el 
+									<strong>Segundo Nombre</strong>
+								</span>
+								<span *ngIf="employeeForm.controls.second_name.errors?.maxlength"> 
+									Máximo 50 caracteres
+								</span>
+							</mat-error>							
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Apellido" formControlName="last_name" />
+							<mat-error>
+								<span *ngIf="employeeForm.controls.last_name.errors?.required"> Por favor ingrese el 
+									<strong>Apellido</strong>
+								</span>
+								<span *ngIf="employeeForm.controls.last_name.errors?.maxlength"> 
+									Máximo 100 caracteres
+								</span>
+							</mat-error>							
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Teléfono" formControlName="phone" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.phone.errors?.required"> Por favor ingrese un número de
+									<strong>Teléfono</strong>
+								</span>
+								<span *ngIf="employeeForm.controls.phone.errors?.maxlength"> 
+									Máximo 50 caracteres
+								</span>
+								
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Dirección" formControlName="address" />							
+							<mat-error>
+								<span *ngIf="employeeForm.controls.phone.errors?.required"> Por favor ingrese una
+									<strong>Dirección</strong>
+								</span>
+								<span *ngIf="employeeForm.controls.phone.errors?.maxlength"> 
+									Máximo 400 caracteres
+								</span>
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					
+					<div class="col-lg-4 margin-bottom-20">
+						<mat-form-field class="mat-form-field-fluid">
+							<mat-select placeholder="Ciudad" formControlName="city_id">
+								<mat-option *ngFor="let city of cities" [value]="city.id">
+									{{city.name}}
+								</mat-option>							
+							</mat-select>							
+							<mat-error>Por favor seleccione una
+								<strong>Ciudad</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					-->
+				</div>
+			</div>
+		</form>	
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button type="button" class="btn btn-danger" [mat-dialog-close]="data.animal" [disabled]="employeeService.loading">
+		Cancelar
+	</button>&nbsp;
+	<button type="button" class="btn btn-primary" (click)="onSubmit(employeeForm.value)" [disabled]="employeeService.loading">Guardar Cambios</button>
+</mat-dialog-actions>

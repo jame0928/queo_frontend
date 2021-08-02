@@ -1,0 +1,155 @@
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <h3>Lista de Empleados</h3>
+        </div>
+        <div class="card-actions">
+            <employee-form (success)="dataSource.loadData()">
+                <button class="btn btn-primary" type="button">
+                    <i class="mdi mdi-plus"></i>
+                    Agregar
+                </button>
+            </employee-form>
+        </div>
+    </div>
+    <div class="card-body filter-form">
+        
+            <div class="row align-items-center">
+                <div class="col-md-12">
+
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filter.first_name">
+                        <button mat-button *ngIf="filter.first_name" matSuffix mat-icon-button aria-label="Clear" (click)="filter.first_name=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-hint align="start">
+                            <strong>Nombre</strong>
+                        </mat-hint>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filter.last_name">
+                        <button mat-button *ngIf="filter.last_name" matSuffix mat-icon-button aria-label="Clear" (click)="filter.last_name=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-hint align="start">
+                            <strong>Apellido</strong>
+                        </mat-hint>
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filter.email">
+                        <button mat-button *ngIf="filter.email" matSuffix mat-icon-button aria-label="Clear" (click)="filter.email=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-hint align="start">
+                            <strong>Email</strong>
+                        </mat-hint>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filter.phone">
+                        <button mat-button *ngIf="filter.phone" matSuffix mat-icon-button aria-label="Clear" (click)="filter.phone=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-hint align="start">
+                            <strong>Teléfono</strong>
+                        </mat-hint>
+                    </mat-form-field>
+
+                      
+                    
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="filter.company">
+                        <button mat-button *ngIf="filter.company" matSuffix mat-icon-button aria-label="Clear" (click)="filter.company=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-hint align="start">
+                            <strong>Empresa</strong>
+                        </mat-hint>
+                    </mat-form-field>  
+                    
+                </div>					
+            </div>
+        
+    </div>
+    <div class="card-body card-footer">
+        <button class="btn btn-secondary" type="button" (click)="dataSource.loadData()">
+            <i class="mdi mdi-magnify"></i>
+            Buscar
+        </button>  
+    </div>
+  </div>
+
+<div class="card">
+    <div class="card-body">        
+        <div perfectScrollbar class="mat-table__wrapper mat-table__wrapper--dashboard mb-4">
+            <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+        
+                <!-- Cod. Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cod. </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.id}} </mat-cell>
+                </ng-container>
+                
+                <!-- Name Column -->
+                <ng-container matColumnDef="first_name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.first_name}} </mat-cell>
+                </ng-container>
+                
+                <!-- Last Name Column -->
+                <ng-container matColumnDef="last_name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.last_name}} </mat-cell>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.email}} </mat-cell>
+                </ng-container>
+
+                <!-- phone Column -->
+                <ng-container matColumnDef="phone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.phone}} </mat-cell>
+                </ng-container>
+
+                <!-- company Column -->
+                <ng-container matColumnDef="company">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element?.company?.name}} </mat-cell>
+                </ng-container>
+                
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+					<mat-cell *matCellDef="let element">                        
+                        
+                        <employee-form [id]="element?.id" (success)="dataSource.loadData()">
+                            <button class="btn btn-sm btn-warning">
+                                <i class="mdi mdi-pencil"></i>
+                            </button>
+                        </employee-form>    
+                        &nbsp;                        
+                        <button class="btn btn-sm btn-danger" (click)="deleteEmployee(element)">
+                            <i class="mdi mdi-delete"></i>
+                        </button>
+                        
+					</mat-cell>
+				</ng-container>
+            
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"  [ngClass] = "{'row-disabled' : row.state != 1}"></mat-row>
+            </mat-table>
+        
+        </div>
+        <!-- start: BOTTOM -->
+        <div class="mat-table__bottom mat-table__bottom--padding">
+            <mat-paginator [pageSize]="employeeService.tableConfig.pageSize" [pageSizeOptions]="employeeService.tableConfig.sizeOptions" [length]="dataSource.totalItems$ | async" [showFirstLastButtons]="employeeService.tableConfig.showFirstLastButtons"></mat-paginator>
+        </div>
+        <!-- end: BOTTOM -->
+    </div>
+</div>

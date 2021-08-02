@@ -1,0 +1,29 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="user-profile">
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="./assets/images/users/profile.png" alt="user" /><span class="hide-menu">Hector Jaimes </span></a>
+                    <ul aria-expanded="false" class="collapse">                        
+                        <li><a routerLink="/auth/login">Salir</a></li>
+                    </ul>
+                </li>
+                <li class="nav-devider"></li>
+                <li *ngFor="let item of menuItems"> 
+                    <a [routerLink]="item.url"><i class="{{item.icon}}"></i> <span class="hide-menu">{{item.title}} </span></a>
+                </li>
+                
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
