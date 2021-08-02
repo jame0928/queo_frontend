@@ -1,4 +1,4 @@
-import { CompanyModel } from "./companymodel";
+import { CompanyModel } from "./companyModel";
 
 export class EmployeeModel {
 
